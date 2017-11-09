@@ -1,0 +1,17 @@
+php:
+    build: ./php-fpm
+    volumes:
+        - ../app/:/var/www
+    working_dir: /var/www
+nginx:
+    build: ./nginx
+    ports:
+        - 8000:80
+    links:
+        - php
+    volumes_from:
+        - php
+db:
+    image: postgres
+    environment:
+        POSTGRES_PASSWORD: example

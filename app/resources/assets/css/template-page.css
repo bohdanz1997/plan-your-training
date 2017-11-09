@@ -1,0 +1,9 @@
+.css-select {
+    height: 200px !important;
+}
+
+.css-select option {
+    padding: 5px 0;
+}
+
+

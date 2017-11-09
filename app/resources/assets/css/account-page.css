@@ -1,0 +1,10 @@
+.template-delete-btn {
+    position: relative;
+    top: -40px;
+    right: -6px;
+}
+
+.btn-group {
+    margin-bottom: 15px;
+}
+
