@@ -1,5 +1,7 @@
 <template>
     <div class="track">
+        <button class="btn btn-default" @click="createWorkout">Create Workout</button>
+        <input type="date" v-model="date">
         <div class="num-wrap">
             <div class="num-container">
                 <slide-number ref="slideNumber"></slide-number>
@@ -25,6 +27,7 @@
     export default {
         data() {
             return {
+                date: '',
                 editedSet: {},
                 button1: {
                     sm: new StateManager({
@@ -107,6 +110,9 @@
                 'remove',
                 'get'
             ]),
+            ...mapActions('workout', {
+                addWorkout: 'add'
+            }),
             ...mapMutations('workout', [
                 'setWeight',
                 'setReps'
@@ -185,6 +191,13 @@
             disableButtons() {
                 this.button1.sm2.set('disabled')
                 this.button2.sm2.set('disabled')
+            },
+            createWorkout() {
+                this.addWorkout({
+                    datetime: this.date,
+                    weekday: 5,
+                    sets: this.sets.map(item => item.id)
+                }).then(response => console.log(response))
             }
         }
     }

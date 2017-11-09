@@ -15,7 +15,6 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot()
     {
-        Workout::observe(TrainingObserver::class);
     }
 
     /**

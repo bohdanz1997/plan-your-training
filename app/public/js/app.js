@@ -49911,6 +49911,8 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 //
 //
 //
+//
+//
 
 
 
@@ -49923,6 +49925,7 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
 /* harmony default export */ __webpack_exports__["default"] = ({
     data: function data() {
         return {
+            date: '',
             editedSet: {},
             button1: {
                 sm: new __WEBPACK_IMPORTED_MODULE_4__utils_state_manager__["default"]({
@@ -50006,7 +50009,9 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
             this.button2.sm.set(state);
         }
     },
-    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapActions */])('set', ['add', 'edit', 'remove', 'get']), Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapMutations */])('workout', ['setWeight', 'setReps']), {
+    methods: _extends({}, Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapActions */])('set', ['add', 'edit', 'remove', 'get']), Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["b" /* mapActions */])('workout', {
+        addWorkout: 'add'
+    }), Object(__WEBPACK_IMPORTED_MODULE_5_vuex__["c" /* mapMutations */])('workout', ['setWeight', 'setReps']), {
         updateSetPositions: function updateSetPositions() {
             this.setList.map(function (value, key) {
                 value.position = key + 1;
@@ -50086,6 +50091,17 @@ var _extends = Object.assign || function (target) { for (var i = 1; i < argument
         disableButtons: function disableButtons() {
             this.button1.sm2.set('disabled');
             this.button2.sm2.set('disabled');
+        },
+        createWorkout: function createWorkout() {
+            this.addWorkout({
+                datetime: this.date,
+                weekday: 5,
+                sets: this.sets.map(function (item) {
+                    return item.id;
+                })
+            }).then(function (response) {
+                return console.log(response);
+            });
         }
     })
 });
@@ -51008,6 +51024,33 @@ var render = function() {
     "div",
     { staticClass: "track" },
     [
+      _c(
+        "button",
+        { staticClass: "btn btn-default", on: { click: _vm.createWorkout } },
+        [_vm._v("Create Workout")]
+      ),
+      _vm._v(" "),
+      _c("input", {
+        directives: [
+          {
+            name: "model",
+            rawName: "v-model",
+            value: _vm.date,
+            expression: "date"
+          }
+        ],
+        attrs: { type: "date" },
+        domProps: { value: _vm.date },
+        on: {
+          input: function($event) {
+            if ($event.target.composing) {
+              return
+            }
+            _vm.date = $event.target.value
+          }
+        }
+      }),
+      _vm._v(" "),
       _c("div", { staticClass: "num-wrap" }, [
         _c(
           "div",
@@ -51445,7 +51488,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 __WEBPACK_IMPORTED_MODULE_0__api_set__["a" /* default */].update(set).then(function (response) {
                     flash(response.data.message);
 
-                    commit(__WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* UPDATE_SET_SUCCESS */], {
+                    commit(__WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UPDATE_SET_SUCCESS */], {
                         set: response.data.set
                     });
                     resolve();
@@ -51475,7 +51518,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var set = _ref6.set;
 
         state.items.push(set);
-    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* UPDATE_SET_SUCCESS */], function (state, _ref7) {
+    }), _defineProperty(_mutations, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["e" /* UPDATE_SET_SUCCESS */], function (state, _ref7) {
         var set = _ref7.set;
 
         Vue.set(state.items, state.items.indexOf(set), set);
@@ -51520,18 +51563,28 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return RECEIVE_SETS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "c", function() { return STORE_SET_SUCCESS; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return UPDATE_SET_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "e", function() { return UPDATE_SET_SUCCESS; });
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DESTROY_SET_SUCCESS; });
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "d", function() { return STORE_WORKOUT_SUCCESS; });
 var RECEIVE_SETS = 'RECEIVE_SETS';
 var STORE_SET_SUCCESS = 'STORE_SET_SUCCESS';
 var UPDATE_SET_SUCCESS = 'UPDATE_SET_SUCCESS';
 var DESTROY_SET_SUCCESS = 'DESTROY_SET_SUCCESS';
+
+var STORE_WORKOUT_SUCCESS = 'STORE_WORKOUT_SUCCESS';
 
 /***/ }),
 /* 89 */
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__api_workout__ = __webpack_require__(102);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__mutation_types__ = __webpack_require__(88);
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+
+
+
 /* harmony default export */ __webpack_exports__["a"] = ({
     namespaced: true,
     state: function state() {
@@ -51542,7 +51595,23 @@ var DESTROY_SET_SUCCESS = 'DESTROY_SET_SUCCESS';
         };
     },
 
-    mutations: {
+    actions: {
+        add: function add(_ref, workout) {
+            var commit = _ref.commit;
+
+            return new Promise(function (resolve, reject) {
+                __WEBPACK_IMPORTED_MODULE_0__api_workout__["a" /* default */].store(workout).then(function (response) {
+                    flash(response.data.message);
+
+                    commit(__WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* STORE_WORKOUT_SUCCESS */], {
+                        set: response.data.workout
+                    });
+                    resolve();
+                });
+            });
+        }
+    },
+    mutations: _defineProperty({
         setWeight: function setWeight(state, value) {
             state.weight = value;
         },
@@ -51552,7 +51621,9 @@ var DESTROY_SET_SUCCESS = 'DESTROY_SET_SUCCESS';
         setStep: function setStep(state, value) {
             state.step = value;
         }
-    }
+    }, __WEBPACK_IMPORTED_MODULE_1__mutation_types__["d" /* STORE_WORKOUT_SUCCESS */], function (state, _ref2) {
+        var workout = _ref2.workout;
+    })
 });
 
 /***/ }),
@@ -51813,6 +51884,25 @@ var _class = function () {
 /***/ (function(module, exports) {
 
 // removed by extract-text-webpack-plugin
+
+/***/ }),
+/* 98 */,
+/* 99 */,
+/* 100 */,
+/* 101 */,
+/* 102 */
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios__ = __webpack_require__(9);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_axios___default = __webpack_require__.n(__WEBPACK_IMPORTED_MODULE_0_axios__);
+
+
+/* harmony default export */ __webpack_exports__["a"] = ({
+    store: function store(data) {
+        return __WEBPACK_IMPORTED_MODULE_0_axios___default.a.post('api/workout', data);
+    }
+});
 
 /***/ })
 /******/ ]);

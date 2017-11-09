@@ -1,15 +1,7 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
     return view('welcome');
@@ -29,5 +21,7 @@ Route::get('api/set/all', 'api\SetController@all');
 Route::post('api/set', 'api\SetController@store');
 Route::put('api/set/{set}', 'api\SetController@update');
 Route::delete('api/set/{set}', 'api\SetController@destroy');
+
+Route::post('api/workout', 'api\WorkoutController@store');
 
 Auth::routes();
