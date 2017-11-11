@@ -10,11 +10,19 @@ export default class {
         return this
     }
 
+    get current() {
+        return this.states[this.currentState]
+    }
+
+    currentEq(value) {
+        return this.current === value
+    }
+
     get(state = null) {
         if (state) {
             return this.states[state]
         }
 
-        return this.states[this.currentState]
+        return this.current
     }
 }

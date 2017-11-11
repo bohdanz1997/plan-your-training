@@ -35,6 +35,7 @@ class SetController extends Controller
 
     public function destroy(Set $set)
     {
+        $set->workouts()->detach();
         $set->delete();
 
         return ['message' => 'Сет видалено'];

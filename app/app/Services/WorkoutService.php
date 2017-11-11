@@ -7,10 +7,6 @@ use Illuminate\Support\Facades\Auth;
 
 class WorkoutService
 {
-    public function __construct(
-    ) {
-    }
-
     public function saveWithSets($data)
     {
         /* @var Workout $workout */

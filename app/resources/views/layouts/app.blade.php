@@ -26,9 +26,7 @@
 <div id="app">
     <nav class="navbar navbar-default navbar-static-top">
         <div class="container">
-            <sidebar>
-                @include('partials.sidebar')
-            </sidebar>
+            <sidebar></sidebar>
             @include('partials.navbar')
         </div>
     </nav>
@@ -45,11 +43,9 @@
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @yield('content')
-                <track-ex></track-ex>
+                <router-view></router-view>
 
                 <flash message="{{ session('flash') }}"></flash>
-
-                {{--<list :items="['a', 'b']"></list>--}}
             </div>
         </div>
     </div>

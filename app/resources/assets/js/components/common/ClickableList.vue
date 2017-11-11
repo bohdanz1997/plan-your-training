@@ -1,9 +1,9 @@
 <template>
     <div class="data-list">
-        <table class="table">
+        <table class="table table-bordered table-hover">
             <tbody>
                 <tr v-for="item in items" @click="handleItemClick(item)">
-                    <td>{{ item }}</td>
+                    <td>{{ item.title }}</td>
                 </tr>
             </tbody>
         </table>
@@ -20,3 +20,9 @@
         }
     }
 </script>
+
+<style lang="sass">
+    .data-list
+        .table
+            background: #fff
+</style>

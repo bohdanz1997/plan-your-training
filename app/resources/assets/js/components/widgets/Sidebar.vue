@@ -7,7 +7,14 @@
         </span>
         <div class="sidebar" :class="[{ open: opened }]">
             <div class="sidebar-inner-index">
-                <slot></slot>
+                <ul class="main-menu">
+                    <li><a class="logo" href="/">Plan your training</a></li>
+                    <li v-for="link in links" @click="onlinkClick">
+                        <router-link :to="link.path">
+                            {{ link.text }}
+                        </router-link>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
@@ -17,7 +24,10 @@
     export default {
         data() {
             return {
-                opened: false
+                opened: false,
+                links: [
+                    { text: 'Розпочати тренування', path: '/workout_start' }
+                ]
             }
         },
         mounted() {
@@ -65,6 +75,9 @@
             },
             toggle() {
                 this.opened = !this.opened
+            },
+            onlinkClick() {
+                this.close()
             }
         }
     }

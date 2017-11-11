@@ -22,6 +22,11 @@ Route::post('api/set', 'api\SetController@store');
 Route::put('api/set/{set}', 'api\SetController@update');
 Route::delete('api/set/{set}', 'api\SetController@destroy');
 
+Route::get('api/exercise/all', 'api\ExerciseController@all');
+Route::post('api/exercise', 'api\ExerciseController@store');
+
+Route::get('api/group/all', 'api\GroupController@all');
+
 Route::post('api/workout', 'api\WorkoutController@store');
 
 Auth::routes();

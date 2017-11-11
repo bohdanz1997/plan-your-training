@@ -1,6 +1,9 @@
 <ul class="main-menu">
     <li><a class="logo" href="{{ route('home') }}">{{ config('app.name') }}</a></li>
-    @if (Auth::guest())
+    <router-link to="/home">Home</router-link>
+    <router-link to="/workout">Workout</router-link>
+
+@if (Auth::guest())
         <li><a href="{{ route('login') }}">Вхід</a></li>
         <li><a href="{{ route('register') }}">Реєстрація</a></li>
     @else
