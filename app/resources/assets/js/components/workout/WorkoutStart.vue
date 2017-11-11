@@ -47,14 +47,12 @@
             })
         },
         created() {
-            this.getExercises()
             this.getGroups()
 
             this.selection.set('group')
         },
         methods: {
             ...mapMutations('group', { changeSelectedGroup: 'changeSelected' }),
-            ...mapActions('exercise', { getExercises: 'get' }),
             ...mapActions('group', { getGroups: 'get' }),
             ...mapActions('workout', { addWorkout: 'add' }),
             handleListGroupClick(item) {
@@ -72,7 +70,7 @@
             createWorkout() {
                 this.addWorkout({
                     datetime: moment().format('YYYY-MM-DD'),
-                    weekday: 5,
+                    weekday: moment().format('E'),
                     sets: []
                 }).then(response => this.$router.push('workout'))
             }

@@ -14,6 +14,11 @@
                             {{ link.text }}
                         </router-link>
                     </li>
+                    <li><logout-button
+                            logout-path="api/logout"
+                            route-after="login"
+                            @click="onlinkClick"
+                    ></logout-button></li>
                 </ul>
             </div>
         </div>
@@ -21,11 +26,17 @@
 </template>
 
 <script>
+    import LogoutButton from '../auth/LogoutBtn.vue'
+
     export default {
+        components: {
+            LogoutButton
+        },
         data() {
             return {
                 opened: false,
                 links: [
+                    { text: 'Вхід у систему', path: '/login' },
                     { text: 'Розпочати тренування', path: '/workout_start' }
                 ]
             }
