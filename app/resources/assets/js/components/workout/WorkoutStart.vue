@@ -68,11 +68,15 @@
                 }
             },
             createWorkout() {
+//                showPreloader()
+
                 this.addWorkout({
                     datetime: moment().format('YYYY-MM-DD'),
                     weekday: moment().format('E'),
                     sets: []
-                }).then(response => this.$router.push('workout'))
+                }).then(() => {
+                    this.$router.push({ name: 'workout' })
+                })
             }
         }
     }

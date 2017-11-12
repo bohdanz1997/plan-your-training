@@ -3,7 +3,10 @@
         <table class="table table-bordered table-hover">
             <tbody>
                 <tr v-for="item in items" @click="handleItemClick(item)">
-                    <td>{{ item.title }}</td>
+                    <td>
+                        <i class="fa fa-angle-right" :style="{ color: item.color}"></i>
+                        {{ item.title }}
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -22,7 +25,20 @@
 </script>
 
 <style lang="sass">
+    @import "../../../sass/includes/vars"
+
     .data-list
         .table
             background: #fff
+            font-size: 16px
+            tr
+                &:hover
+                    cursor: pointer
+                td
+                    line-height: 1.6
+                    i
+                        margin-right: 5px
+                        margin-left: 5px
+                        font-weight: bold
+                        font-size: 18px
 </style>

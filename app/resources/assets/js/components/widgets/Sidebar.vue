@@ -2,23 +2,27 @@
     <div class="navbar-header">
         <span id="mobile-bar">
             <a class="menu-button visible-xs visible-sm"
-               @click="toggle">
+               @click="open">
             </a>
         </span>
         <div class="sidebar" :class="[{ open: opened }]">
             <div class="sidebar-inner-index">
                 <ul class="main-menu">
-                    <li><a class="logo" href="/">Plan your training</a></li>
-                    <li v-for="link in links" @click="onlinkClick">
+                    <li v-for="link in links" @click="onlinkClick" :class="link.className">
                         <router-link :to="link.path">
                             {{ link.text }}
                         </router-link>
                     </li>
-                    <li><logout-button
+                    <li v-if="user"><logout-button
                             logout-path="api/logout"
                             route-after="login"
                             @click="onlinkClick"
                     ></logout-button></li>
+                    <li v-else @click="onlinkClick">
+                        <router-link to="login">
+                            Вхід
+                        </router-link>
+                    </li>
                 </ul>
             </div>
         </div>
@@ -27,6 +31,7 @@
 
 <script>
     import LogoutButton from '../auth/LogoutBtn.vue'
+    import { mapGetters } from 'vuex'
 
     export default {
         components: {
@@ -34,18 +39,23 @@
         },
         data() {
             return {
+                appContainer: {},
                 opened: false,
                 links: [
-                    { text: 'Вхід у систему', path: '/login' },
+                    { text: 'Plan your training', path: '/', className: 'logo'},
                     { text: 'Розпочати тренування', path: '/workout_start' }
                 ]
             }
         },
+        computed: {
+            ...mapGetters('user', ['user'])
+        },
         mounted() {
             const sidebar = document.querySelector('.sidebar')
             const menuButton = document.querySelector('.menu-button')
+            this.appContainer = document.getElementById('content-wrap')
 
-            document.body.addEventListener('click', function (e) {
+            document.addEventListener('click', function (e) {
                 if (e.target !== menuButton && !sidebar.contains(e.target)) {
                     this.close()
                 }
@@ -53,12 +63,12 @@
 
             let start = {}, end = {}
 
-            document.body.addEventListener('touchstart', function (e) {
+            document.addEventListener('touchstart', function (e) {
                 start.x = e.changedTouches[0].clientX
                 start.y = e.changedTouches[0].clientY
             }.bind(this))
 
-            document.body.addEventListener('touchend', function (e) {
+            document.addEventListener('touchend', function (e) {
                 end.y = e.changedTouches[0].clientY
                 end.x = e.changedTouches[0].clientX
 
@@ -66,26 +76,26 @@
                 let yDiff = end.y - start.y
 
                 if (Math.abs(xDiff) > Math.abs(yDiff)) {
-                    if (xDiff > 0 && start.x <= 80) this.open()
-                    else this.close()
+                    if (xDiff > 0 && start.x <= 80) {
+                        this.open()
+                    } else {
+                        this.close()
+                    }
                 }
             }.bind(this))
-
-            document.body.addEventListener('keyup', e => {
-                if (e.keyCode === 77) {
-                    this.toggle()
-                }
-            })
         },
         methods: {
             open() {
                 this.opened = true
+                this.appContainer.classList.add('disable-interact')
             },
             close() {
                 this.opened = false
+                this.appContainer.classList.remove('disable-interact')
             },
             toggle() {
                 this.opened = !this.opened
+                this.appContainer.classList.toggle('disable-interact')
             },
             onlinkClick() {
                 this.close()
@@ -116,17 +126,17 @@
             line-height: 1.5em
             padding-left: 1em
 
+            .logo
+                font-size: 24px
+                margin-bottom: 0.8em
+                a
+                    color: $green
             li
                 margin-top: 0.8em
-
-                .logo
-                    font-size: 24px
-
                 a
                     color: #34495e
                     text-decoration: none
                     padding-bottom: 3px
-
                     .current,
                     &:hover,
                     &:focus

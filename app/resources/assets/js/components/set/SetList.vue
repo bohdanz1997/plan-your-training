@@ -93,7 +93,7 @@
                         font-size: 15px
                         color: $grey-3
                 &.edited
-                    background-color: #b8e9f1
+                    background-color: $blue
 
         .list-leave-active,
         .list-enter-active

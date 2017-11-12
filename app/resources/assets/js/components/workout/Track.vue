@@ -6,8 +6,12 @@
             </div>
         </div>
         <div class="options form-group col-sm-12">
-            <button class="btn tr-btn" :disabled="button1.sm2.get().disabled" :class="button1.sm.get().className" @click="handleAddBtnClick">{{ button1.sm.get().text }}</button>
-            <button class="btn tr-btn" :disabled="button1.sm2.get().disabled" :class="button2.sm.get().className" @click="handleClearBtnClick">{{ button2.sm.get().text }}</button>
+            <button class="btn pyt-btn" :disabled="button1.sm2.get().disabled" :class="button1.sm.get().className" @click="handleAddBtnClick">
+                {{ button1.sm.get().text }}
+            </button>
+            <button class="btn pyt-btn" :disabled="button1.sm2.get().disabled" :class="button2.sm.get().className" @click="handleClearBtnClick">
+                {{ button2.sm.get().text }}
+            </button>
         </div>
         <set-list @setClick="handleSetClick" ref="setList" :edited-set="editedSet"></set-list>
     </div>
@@ -66,7 +70,8 @@
                         }
                     })
                 },
-                setList: []
+                setList: [],
+                loading: false
             }
         },
         computed: {
@@ -176,10 +181,12 @@
             enableButtons() {
                 this.button1.sm2.set('enabled')
                 this.button2.sm2.set('enabled')
+                this.loading = false
             },
             disableButtons() {
                 this.button1.sm2.set('disabled')
                 this.button2.sm2.set('disabled')
+                this.loading = true
             }
         }
     }
