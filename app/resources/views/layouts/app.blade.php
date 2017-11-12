@@ -24,7 +24,10 @@
 <body id="app-layout">
 
 <div id="app">
-    <nav class="navbar navbar-default navbar-static-top">
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <a class="navbar-brand pull-right" href="#">
+            <i v-show="true" class="fa fa-spinner fa-spin"></i>
+        </a>
         <div class="container">
             <sidebar></sidebar>
             @include('partials.navbar')
@@ -33,17 +36,14 @@
 
     <div id="loader-wrapper">
         <div id="loader"></div>
-
-        <div class="loader-section section-left"></div>
-        <div class="loader-section section-right"></div>
-
     </div>
 
-    <div class="container" id="content-wrap">
+    <div class="container app-container" id="content-wrap">
         <div class="row">
             <div class="col-md-8 col-md-offset-2">
                 @yield('content')
-                <router-view></router-view>
+
+                <app></app>
 
                 <flash message="{{ session('flash') }}"></flash>
             </div>

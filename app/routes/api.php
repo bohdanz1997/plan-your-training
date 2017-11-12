@@ -34,3 +34,5 @@ Route::post('exercise', 'api\ExerciseController@store');
 Route::get('group/all', 'api\GroupController@all');
 
 Route::post('workout', 'api\WorkoutController@store');
+
+Route::get('user/auth', 'api\UserController@getAuthUser');
