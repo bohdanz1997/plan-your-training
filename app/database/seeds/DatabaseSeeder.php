@@ -37,14 +37,14 @@ class DatabaseSeeder extends Seeder
 
     private function createGroups()
     {
-        Group::firstOrCreate(['title' => 'Груди']);
-        Group::firstOrCreate(['title' => 'Плечі']);
-        Group::firstOrCreate(['title' => 'Широкі м\'язи спини']);
-        Group::firstOrCreate(['title' => 'Трапеції, середина та низ спини']);
-        Group::firstOrCreate(['title' => 'Ноги']);
-        Group::firstOrCreate(['title' => 'Біцепс']);
-        Group::firstOrCreate(['title' => 'Трицепс']);
-        Group::firstOrCreate(['title' => 'Прес']);
+        Group::firstOrCreate(['title' => 'Груди', 'color' => '#F44336']);
+        Group::firstOrCreate(['title' => 'Плечі', 'color' => '#cddc39']);
+        Group::firstOrCreate(['title' => 'Широкі м\'язи спини', 'color' => '#9c27b0']);
+        Group::firstOrCreate(['title' => 'Трапеції, середина та низ спини', 'color' => '#2196f3']);
+        Group::firstOrCreate(['title' => 'Ноги', 'color' => '#009688']);
+        Group::firstOrCreate(['title' => 'Біцепс', 'color' => '#e91e63']);
+        Group::firstOrCreate(['title' => 'Трицепс', 'color' => '#ff9800']);
+        Group::firstOrCreate(['title' => 'Прес', 'color' => '#ff5722']);
     }
 
     private function createExercises()
