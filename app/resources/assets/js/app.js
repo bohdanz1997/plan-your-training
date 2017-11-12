@@ -7,6 +7,7 @@ import router from './router/router'
 
 import Sidebar from './components/widgets/Sidebar.vue'
 import Flash from './components/widgets/Flash.vue'
+import App from './components/App.vue'
 
 new Vue({
     el: '#app',
@@ -14,6 +15,7 @@ new Vue({
     router,
     components: {
         Sidebar,
-        Flash
+        Flash,
+        App
     }
 })
