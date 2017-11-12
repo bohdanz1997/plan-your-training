@@ -61,3 +61,11 @@ window.events = new Vue();
 window.flash = function (message) {
     window.events.$emit('flash', message);
 }
+
+window.showPreloader = function () {
+    document.body.className = 'loading';
+}
+
+window.hidePreloader = function () {
+    document.body.className = 'loaded';
+}
