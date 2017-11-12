@@ -5,6 +5,7 @@ import set from './modules/set'
 import workout from './modules/workout'
 import exercise from './modules/exercise'
 import group from './modules/group'
+import user from './modules/user'
 
 Vue.use(Vuex)
 
@@ -13,6 +14,7 @@ export default new Vuex.Store({
         set,
         workout,
         exercise,
-        group
+        group,
+        user
     }
 })

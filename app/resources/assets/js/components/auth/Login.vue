@@ -1,8 +1,8 @@
 <template>
     <div class="row">
         <div class="col-md-8 col-md-offset-2">
-            <div class="panel panel-default">
-                <div class="panel-heading">Вхід у систему</div>
+            <div class="panel panel-success">
+                <div class="panel-heading">Вхід в акаунт</div>
                 <div class="panel-body">
                     <form method="post" @submit.prevent="login" class="form-horizontal">
                         <div class="form-group">
@@ -21,7 +21,7 @@
                         </div>
                         <div class="form-group">
                             <div class="col-md-12">
-                                <button type="submit" class="btn btn-primary form-control">Увійти</button>
+                                <button type="submit" class="btn btn-success form-control">Увійти</button>
                             </div>
                         </div>
                     </form>
@@ -33,6 +33,7 @@
 
 <script>
     import axios from 'axios'
+    import { mapActions } from 'vuex'
 
     export default {
         data() {
@@ -44,13 +45,18 @@
             }
         },
         methods: {
+            ...mapActions('user', ['updateUserData']),
             login() {
+//                showPreloader()
+
                 axios.post('api/login', this.auth)
                     .then(response => {
                         if (response.data.success) {
-                            this.$router.push('workout_start')
+                            this.updateUserData().then(() => {
+                                this.$router.push({ name: 'workout_start' })
+                            })
                         }
-                    }, error => console.log(error))
+                    })
             }
         }
     }
@@ -61,6 +67,7 @@
         &-heading
             font-size: 24px
             text-align: center
+            font-weight: bold
         input,
         button
             height: 42px
