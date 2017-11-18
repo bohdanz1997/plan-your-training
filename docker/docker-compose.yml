@@ -1,7 +1,7 @@
 php:
     build: ./php-fpm
     volumes:
-        - ../app/:/var/www
+        - ../app/:/var/www/app/
     working_dir: /var/www
 nginx:
     build: ./nginx

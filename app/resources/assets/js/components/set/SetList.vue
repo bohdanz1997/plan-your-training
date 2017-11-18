@@ -92,6 +92,7 @@
                     i
                         font-size: 15px
                         color: $grey-3
+                        z-index: 0
                 &.edited
                     background-color: $blue
 

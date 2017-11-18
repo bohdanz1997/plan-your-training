@@ -1,34 +1,29 @@
-.training hr {
-  margin-bottom: 10px;
-  margin-top: 20px;
-}
-
-.training-heading {
-  display: inline-block;
-}
-
-.training .abort-form {
-  float: right;
-}
-
-.training .exercise-heading {
-  font-size: 18px;
-  margin-top: 10px;
-  margin-bottom: 10px;
+.app-container {
+  margin-top: 65px;
 }
 
 .navbar {
   margin-bottom: 15px;
 }
 
+.disable-interact {
+  pointer-events: none;
+}
+
 #mobile-bar .menu-button {
   position: absolute;
   width: 24px;
   height: 24px;
-  top: 12px;
-  left: 12px;
+  top: 0;
+  left: 0;
+  padding: 25px 24px;
   background: url(/images/menu.png?f97c6cafce76896f725f56d22c33dc5d) center center no-repeat;
   background-size: 24px;
+}
+
+#mobile-bar .menu-button:hover,
+#mobile-bar .menu-button:focus {
+  background-color: #d3e0e9;
 }
 
 @media screen and (max-width: 900px) {
@@ -37,10 +32,13 @@
   }
 }
 
-.tr-btn {
+.pyt-btn {
   width: 160px;
   margin-right: 5px;
   margin-left: 5px;
+}
+
+.btn {
   height: 40px;
   font-weight: bold;
 }

@@ -1,18 +1,21 @@
 <template>
     <div class="track">
-        <div class="num-wrap">
-            <div class="num-container">
-                <slide-number ref="slideNumber"></slide-number>
+        <div class="track-container">
+            <div class="num-wrap">
+                <div class="num-container">
+                    <slide-number ref="slideNumber"></slide-number>
+                </div>
+            </div>
+            <div class="options form-group col-sm-12">
+                <button class="btn pyt-btn" :disabled="button1.sm2.get().disabled" :class="button1.sm.get().className" @click="handleAddBtnClick">
+                    {{ button1.sm.get().text }}
+                </button>
+                <button class="btn pyt-btn" :disabled="button1.sm2.get().disabled" :class="button2.sm.get().className" @click="handleClearBtnClick">
+                    {{ button2.sm.get().text }}
+                </button>
             </div>
         </div>
-        <div class="options form-group col-sm-12">
-            <button class="btn pyt-btn" :disabled="button1.sm2.get().disabled" :class="button1.sm.get().className" @click="handleAddBtnClick">
-                {{ button1.sm.get().text }}
-            </button>
-            <button class="btn pyt-btn" :disabled="button1.sm2.get().disabled" :class="button2.sm.get().className" @click="handleClearBtnClick">
-                {{ button2.sm.get().text }}
-            </button>
-        </div>
+        <div class="clearfix"></div>
         <set-list @setClick="handleSetClick" ref="setList" :edited-set="editedSet"></set-list>
     </div>
 </template>
@@ -95,7 +98,7 @@
             this.button1.sm2.set('enabled')
             this.button2.sm2.set('enabled')
 
-            this.get().then(() => this.$refs.setList.resize())
+            this.get()//.then(() => this.$refs.setList.resize())
         },
         watch: {
             editedSet() {
@@ -142,7 +145,7 @@
                     this.add(setForAdd)
                         .then(() => {
                             this.$refs.setList.scrollToBottom()
-                            this.$refs.setList.resize()
+//                            this.$refs.setList.resize()
                             this.enableButtons()
                         })
                 } else {
@@ -194,12 +197,26 @@
 
 <style lang="sass">
     .track
-        .num-wrap
-            display: flex
-            justify-content: center
-            margin-bottom: 20px
+        .clearfix
+            margin-top: 256px
+        &-container
+            position: fixed
+            top: 65px
+            width: 100%
+            right: 0
+            background: #f5f8fa
+            z-index: 1
+            &:after
+                content: ''
+                display: block
+                height: 1px
+                background: #ddd
+            .num-wrap
+                display: flex
+                justify-content: center
+                margin-bottom: 20px
 
-        .options
-            display: flex
-            justify-content: center
+            .options
+                display: flex
+                justify-content: center
 </style>

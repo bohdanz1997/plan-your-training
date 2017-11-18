@@ -46,6 +46,7 @@
         top: 50px
         padding: 15px
         position: fixed
+        z-index: 10
         .alert-flash
             margin-bottom: 0
 
